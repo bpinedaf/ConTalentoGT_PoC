@@ -1,14 +1,12 @@
-const API_URL = import.meta.env.VITE_API_URL;
-const API_TOKEN = import.meta.env.VITE_API_TOKEN;
+const PROXY = "/.netlify/functions/api";
 
 function buildUrl(params = {}) {
-  const url = new URL(API_URL);
+  const url = new URL(PROXY, window.location.origin);
   Object.entries(params).forEach(([k, v]) => {
     if (v !== undefined && v !== null && String(v).trim() !== "") {
       url.searchParams.set(k, v);
     }
   });
-  url.searchParams.set("token", API_TOKEN);
   return url.toString();
 }
 
